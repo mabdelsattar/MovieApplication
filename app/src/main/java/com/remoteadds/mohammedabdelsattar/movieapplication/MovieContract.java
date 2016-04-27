@@ -21,7 +21,7 @@ public class MovieContract extends Model{
     @Column(name = "date")
     private String date;
     @Column(name = "rate")
-    private int rate;
+    private double rate;
 
 
 
@@ -65,17 +65,17 @@ public class MovieContract extends Model{
         this.date = date;
     }
 
-    public int getRate() {
+    public double getRate() {
         return rate;
     }
 
-    public void setRate(int rate) {
+    public void setRate(double rate) {
         this.rate = rate;
     }
 
 
 
-    public MovieContract(int movieID, String title, String path, String overview, String date, int rate) {
+    public MovieContract(int movieID, String title, String path, String overview, String date, double rate) {
         super();
         this.movieID = movieID;
         this.title = title;

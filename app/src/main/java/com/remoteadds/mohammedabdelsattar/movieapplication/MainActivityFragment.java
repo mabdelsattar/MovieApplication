@@ -149,6 +149,11 @@ else {
             intent.putExtra("date", movieList.get(position).releaseDate);
             intent.putExtra("path", movieList.get(position).poster_path);
             intent.putExtra("movieID", movieList.get(position).ID);
+            intent.putExtra("overview", movieList.get(position).overview);
+            intent.putExtra("rate", movieList.get(position).vote_average);
+
+
+
             getActivity().startActivity(intent);
         } else {
 
@@ -192,7 +197,10 @@ else {
                                    favoriteMoviesList.get(i).getPath(),
                                    favoriteMoviesList.get(i).getPath(),
                                    0.0,
-                                   1,0.0,favoriteMoviesList.get(i).getOverview(),
+                                   1,
+                                   favoriteMoviesList.get(i).getRate(),
+
+                                   favoriteMoviesList.get(i).getOverview(),
                                    false,
                                    favoriteMoviesList.get(i).getDate())
                    );

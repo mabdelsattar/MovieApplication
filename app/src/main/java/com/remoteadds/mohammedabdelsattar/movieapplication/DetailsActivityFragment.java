@@ -17,6 +17,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -43,9 +44,17 @@ public class DetailsActivityFragment extends Fragment {
    static String  path;
     static String   title;
     static String date;
+    static double rate;
+
+
+    static  String overview;
     static ImageView imView;
     static TextView tvTitle ;
     static TextView tvReleaseDate;
+    static TextView tvOverView;
+    static TextView tvVoteAvg;
+    static RatingBar ratingBar;
+
 
     public  static  boolean isUpdated=false;
     static ArrayList<ReviewItemData> reviewsData;
@@ -69,12 +78,18 @@ public  static Activity myActivity;
         title = movie.original_title;
         date = movie.releaseDate;
         movieID = movie.ID;
+        overview= movie.overview;
+        rate=movie.vote_average;
+
 
         boolean isFavorite= new DataBaseManager().isFavorite(movieID);
         if(isFavorite)
             btnFavorite.setEnabled(false);
         tvTitle.setText(title);
         tvReleaseDate.setText(date);
+tvVoteAvg.setText("vote average : "+rate);
+        tvOverView.setText(overview);
+        ratingBar.setRating((float) (rate / (double)2.0));
 
         Picasso.with(myActivity.getApplicationContext())
                 .load("http://image.tmdb.org/t/p/w342"+path)
@@ -103,6 +118,10 @@ public  static Activity myActivity;
          imView=(ImageView)V.findViewById(R.id.dImg);
          tvTitle =(TextView)V.findViewById(R.id.dOriginalTitle);
          tvReleaseDate =(TextView)V.findViewById(R.id.dReleaseDate);
+        tvOverView =(TextView)V.findViewById(R.id.dOverView);
+        tvVoteAvg =(TextView)V.findViewById(R.id.dVoteAvg);
+        ratingBar = (RatingBar)V.findViewById(R.id.ratingBar);
+
         tvTitle.setTextAppearance(getActivity().getApplicationContext(), android.R.style.TextAppearance_Large);
 btnFavorite=(Button)V.findViewById(R.id.btnAddFavorite);
 
@@ -113,12 +132,20 @@ try {
     title = getActivity().getIntent().getExtras().getString("title");
     date = getActivity().getIntent().getExtras().getString("date");
     movieID = getActivity().getIntent().getExtras().getInt("movieID");
+    overview = getActivity().getIntent().getExtras().getString("overview");
+    rate= getActivity().getIntent().getExtras().getDouble("rate");
+
+
+
 }catch (Exception ex)
 {
     path = "http://markmeets.com/wp-content/uploads/2013/10/Movie-Releases.jpg";
     title = "";
     date = "";
     movieID = 1;
+    overview="";
+    rate = 0.0;
+
 
 }
 
@@ -129,7 +156,7 @@ try {
                 btnFavorite.setEnabled(false);
 
                 ArrayList<MovieContract> movieList = new ArrayList<MovieContract>();
-                movieList.add(new MovieContract(movieID, title, path, "", date, 0));
+                movieList.add(new MovieContract(movieID, title, path, overview , date, rate));
                 new DataBaseManager(movieList).Save();
 
 
@@ -144,6 +171,10 @@ try {
         if(!isUpdated) {
             tvTitle.setText(title);
             tvReleaseDate.setText(date);
+            tvOverView.setText(overview);
+            tvVoteAvg.setText("vote average : "+rate);
+            ratingBar.setRating((float) (rate / (double)2.0));
+
 
             Picasso.with(getActivity().getApplicationContext())
                     .load("http://image.tmdb.org/t/p/w342" + path)
