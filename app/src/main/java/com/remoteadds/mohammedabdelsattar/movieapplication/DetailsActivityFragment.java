@@ -118,14 +118,13 @@ tvVoteAvg.setText("vote average : "+rate);
          imView=(ImageView)V.findViewById(R.id.dImg);
          tvTitle =(TextView)V.findViewById(R.id.dOriginalTitle);
          tvReleaseDate =(TextView)V.findViewById(R.id.dReleaseDate);
-        tvOverView =(TextView)V.findViewById(R.id.dOverView);
-        tvVoteAvg =(TextView)V.findViewById(R.id.dVoteAvg);
-        ratingBar = (RatingBar)V.findViewById(R.id.ratingBar);
+        tvOverView =(TextView)V.findViewById(R.id.tvOverView);
+        tvVoteAvg =(TextView)V.findViewById(R.id.tvVoteAvg);
+        ratingBar = (RatingBar)V.findViewById(R.id.RratingBar);
+
 
         tvTitle.setTextAppearance(getActivity().getApplicationContext(), android.R.style.TextAppearance_Large);
 btnFavorite=(Button)V.findViewById(R.id.btnAddFavorite);
-
-
 
 try {
     path = getActivity().getIntent().getExtras().getString("path");
@@ -135,8 +134,6 @@ try {
     overview = getActivity().getIntent().getExtras().getString("overview");
     rate= getActivity().getIntent().getExtras().getDouble("rate");
 
-
-
 }catch (Exception ex)
 {
     path = "http://markmeets.com/wp-content/uploads/2013/10/Movie-Releases.jpg";
@@ -145,7 +142,6 @@ try {
     movieID = 1;
     overview="";
     rate = 0.0;
-
 
 }
 
@@ -169,6 +165,13 @@ try {
             btnFavorite.setEnabled(false);
 
         if(!isUpdated) {
+            imView=(ImageView)V.findViewById(R.id.dImg);
+            tvTitle =(TextView)V.findViewById(R.id.dOriginalTitle);
+            tvReleaseDate =(TextView)V.findViewById(R.id.dReleaseDate);
+            tvOverView =(TextView)V.findViewById(R.id.tvOverView);
+            tvVoteAvg =(TextView)V.findViewById(R.id.tvVoteAvg);
+            ratingBar = (RatingBar)V.findViewById(R.id.RratingBar);
+
             tvTitle.setText(title);
             tvReleaseDate.setText(date);
             tvOverView.setText(overview);
